@@ -22,7 +22,7 @@ jobs:
         with:
           command: |
             setup
-            get_murphylab_image_collections
+            get_murphylab_image_collections(true)
       - name: Save images
         uses: actions/upload-artifact@v3
         with:
