@@ -23,6 +23,7 @@ jobs:
           wget --no-check-certificate --no-verbose 'https://murphylab.cbd.cmu.edu/data/Hela/3D/multitiff/cellorganizer_full_image_collection.zip'
           unzip -q cellorganizer_full_image_collection.zip
           ls -l
+          rm cellorganizer_full_image_collection.zip
       #- name: Use wget for TCell images
       #  run: |
       #    echo $(pwd)
@@ -31,9 +32,10 @@ jobs:
       #    wget --no-check-certificate --no-verbose 'https://murphylab.cbd.cmu.edu/data/TcellModels/LATFull.tgz'
       #    tar -xf LATFull.tgz
       #    ls -l
+      #    rm LATFull.tgz
       - name: Save images
         uses: actions/upload-artifact@v3
         with:
           name: images
-          path: "${GITHUB_WORKSPACE}/images"
+          path: images
           if-no-files-found: error
