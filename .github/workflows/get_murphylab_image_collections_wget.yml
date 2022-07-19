@@ -1,0 +1,31 @@
+name: wget-based to alternative get_murphylab_image_collections on GitHub-Hosted Runner
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  #push:
+  #  branches: ["master"]
+  #pull_request:
+  #  branches: ["master"]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  download-images:
+    name: Run MATLAB Script
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Use wget for HeLa 3D images
+        run: |
+          wget --no-check-certificate --no-verbose 'https://murphylab.cbd.cmu.edu/data/Hela/3D/multitiff/cellorganizer_full_image_collection.zip'
+          unzip cellorganizer_full_image_collection.zip
+      - name: Use wget for TCell images
+        run: |
+          wget --no-check-certificate --no-verbose 'https://murphylab.cbd.cmu.edu/data/TcellModels/LATFull.tgz'
+          tar -xf LATFull.tgz
+      - name: Save images
+        uses: actions/upload-artifact@v3
+        with:
+          name: images
+          path: images
+          if-no-files-found: error
