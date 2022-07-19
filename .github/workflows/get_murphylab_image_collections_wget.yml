@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 jobs:
   download-images:
-    name: Run MATLAB Script
+    name: Download and extract images with wget
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
