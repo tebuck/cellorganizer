@@ -17,15 +17,23 @@ jobs:
         uses: actions/checkout@v3
       - name: Use wget for HeLa 3D images
         run: |
+          echo $(pwd)
+          cd "${GITHUB_WORKSPACE}/images"
+          echo $(pwd)
           wget --no-check-certificate --no-verbose 'https://murphylab.cbd.cmu.edu/data/Hela/3D/multitiff/cellorganizer_full_image_collection.zip'
           unzip -q cellorganizer_full_image_collection.zip
-      - name: Use wget for TCell images
-        run: |
-          wget --no-check-certificate --no-verbose 'https://murphylab.cbd.cmu.edu/data/TcellModels/LATFull.tgz'
-          tar -xf LATFull.tgz
+          ls -l
+      #- name: Use wget for TCell images
+      #  run: |
+      #    echo $(pwd)
+      #    cd "${GITHUB_WORKSPACE}/images"
+      #    echo $(pwd)
+      #    wget --no-check-certificate --no-verbose 'https://murphylab.cbd.cmu.edu/data/TcellModels/LATFull.tgz'
+      #    tar -xf LATFull.tgz
+      #    ls -l
       - name: Save images
         uses: actions/upload-artifact@v3
         with:
           name: images
-          path: images
+          path: "${GITHUB_WORKSPACE}/images"
           if-no-files-found: error
