@@ -44,7 +44,7 @@ if ~exist( '.succesfully_downloaded_images' )
     
     %2D/3D HeLa dataset
     tarball = 'cellorganizer_full_image_collection.zip';
-    url = 'https://murphylab.cbd.cmu.edu/data/Hela/3D/multitiff';
+    url = 'http://murphylab.web.cmu.edu/data/Hela/3D/multitiff';
     % this just checks for one of the directories and assumes that the rest are there
     if ~exist( [pwd fileSep '3T3'] ) || ~exist( [pwd fileSep 'HeLa'] )
         if nargin == 0
@@ -66,7 +66,7 @@ if ~exist( '.succesfully_downloaded_images' )
     
     %4D T cell dataset
     tarball = 'LATFull.tgz';
-    url = 'https://murphylab.cbd.cmu.edu/data/TcellModels/';
+    url = 'http://murphylab.web.cmu.edu/data/TcellModels/';
     if ~exist( [pwd fileSep 'LAT'] )
         if nargin == 0
             go=input('Downloading 4D T cell collection [1.2Gb], enter Y to continue: ','s');
