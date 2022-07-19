@@ -23,7 +23,6 @@ jobs:
           command: |
             setup
             demo3D52
-      - if: success()
       - name: Save model
         uses: actions/upload-artifact@v3
         with:
