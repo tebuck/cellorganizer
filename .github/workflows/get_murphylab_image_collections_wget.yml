@@ -18,7 +18,7 @@ jobs:
       - name: Use wget for HeLa 3D images
         run: |
           wget --no-check-certificate --no-verbose 'https://murphylab.cbd.cmu.edu/data/Hela/3D/multitiff/cellorganizer_full_image_collection.zip'
-          unzip cellorganizer_full_image_collection.zip
+          unzip -q cellorganizer_full_image_collection.zip
       - name: Use wget for TCell images
         run: |
           wget --no-check-certificate --no-verbose 'https://murphylab.cbd.cmu.edu/data/TcellModels/LATFull.tgz'
