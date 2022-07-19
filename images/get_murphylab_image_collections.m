@@ -55,7 +55,7 @@ if ~exist( '.succesfully_downloaded_images' )
         end
         
         if (upper(go)=='Y')
-            urlwrite([url fileSep tarball], tarball);
+            websave(tarball, [url fileSep tarball]);
             
             disp('Extracting files');
             unzip( tarball );
@@ -76,7 +76,7 @@ if ~exist( '.succesfully_downloaded_images' )
         end
         
         if ( upper(go) == 'Y' )
-            urlwrite([url fileSep tarball], tarball);
+            websave(tarball, [url fileSep tarball]);
             
             disp('Extracting files');
             !tar -xvf LATFull.tgz
