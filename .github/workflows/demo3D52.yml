@@ -2,10 +2,10 @@ name: Run demo3D52 on GitHub-Hosted Runner
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
-  push:
-    branches: ["master", "simulation-experiments-in-mcell-and-vcell"]
-  pull_request:
-    branches: ["master", "simulation-experiments-in-mcell-and-vcell"]
+  #push:
+  #  branches: ["master", "simulation-experiments-in-mcell-and-vcell"]
+  #pull_request:
+  #  branches: ["master", "simulation-experiments-in-mcell-and-vcell"]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 jobs:
