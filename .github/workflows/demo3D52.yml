@@ -1,5 +1,13 @@
-name: Run MATLAB Script on GitHub-Hosted Runner
-on: [push]
+name: Run demo3D52 on GitHub-Hosted Runner
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: ["master", "simulation-experiments-in-mcell-and-vcell"]
+  pull_request:
+    branches: ["master", "simulation-experiments-in-mcell-and-vcell"]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 jobs:
   my-job:
     name: Run MATLAB Script
@@ -12,4 +20,13 @@ jobs:
       - name: Run script
         uses: matlab-actions/run-command@v1
         with:
-          command: setup; demo3D52
+          command: |
+            setup
+            demo3D52
+      - if: success()
+      - name: Save model
+        uses: actions/upload-artifact@v3
+        with:
+          name: lamp2.demo3D52.mat
+          path: models/3D/spharm/lamp2.demo3D52.mat
+          if-no-files-found: error
