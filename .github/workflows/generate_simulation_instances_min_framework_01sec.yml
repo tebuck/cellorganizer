@@ -26,7 +26,6 @@ jobs:
             disp( mfilename );
             % disp( ['The estimated running time is about ', num2str(n_images_to_synthesize * 24478.721/100/60, '%.1f'), ' minutes. Please wait.'] );
             % Modified from code produced by generate_and_simulate.py
-            cd cellorganizer;
             setup;
             options = struct();
             options.reaction_network_file = 'data/CBExMinScaled3_01sec/CBExMinScaled3_01sec.*.mdl';
@@ -64,6 +63,6 @@ jobs:
       - name: Save model
         uses: actions/upload-artifact@v3
         with:
-          name: applications/generate_simulation_instances_min_framework_01sec.m.out
-          path: applications/generate_simulation_instances_min_framework_01sec.m.out
+          name: generate_simulation_instances_min_framework_01sec.m.out
+          path: generate_simulation_instances_min_framework_01sec.m.out
           if-no-files-found: error
