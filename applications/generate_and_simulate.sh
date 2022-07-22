@@ -80,7 +80,7 @@ echo "Beginning at $timestamp_pretty"
 
 # Required to make Python available on lanec1
 if [ "$(hostname)" = 'lanec1.compbio.cs.cmu.edu' ]; then
-    bash "${cellorganizer}/module_if_available.sh" load python36
+    module load python36
 fi
 
 # Generate geometries and run simulations
