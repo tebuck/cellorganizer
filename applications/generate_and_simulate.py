@@ -31,7 +31,7 @@ import pprint
 # import zlib
 # import uuid
 from itertools import chain
-from vcml2fvinput import vcml2fvinput
+# from vcml2fvinput import vcml2fvinput
 
 from argparse_util import remove_prepended_arguments, existing_glob, existing_path, positive_int, bool_strict, nonnegative_int, positive_float
 import biochemical_simulation_files as bsf
@@ -555,7 +555,7 @@ if __name__ == '__main__':
     
     parser.add_argument('--framework_min_clearance', type=float, default=-math.inf, help='double specifying the minimum distance in μm to impose between nucleus and cell after synthesis. -inf to disable. Currently only used for framework meshes assuming corresponding vertices by instance2MCellMDL. Default is -inf.')
     
-    parser.add_argument('--framework_clearance_n_max_filter_rounds', type=positive_int, default=1, help='integer specifying the number of rounds of maximum filter to apply to the projections of cell vertices onto nucleus normals among the immediate neighbors of each vertex. 0 to disable. Currently only used for framework meshes assuming corresponding vertices by instance2MCellMDL. Default is 1.')
+    parser.add_argument('--framework_clearance_n_max_filter_rounds', type=nonnegative_int, default=1, help='integer specifying the number of rounds of maximum filter to apply to the projections of cell vertices onto nucleus normals among the immediate neighbors of each vertex. 0 to disable. Currently only used for framework meshes assuming corresponding vertices by instance2MCellMDL. Default is 1.')
     
     intersecting_mesh_object_policy_default = 'ignore'
     parser.add_argument('--intersecting_mesh_object_policy', type=str, default=intersecting_mesh_object_policy_default, help='''string specifying policy for checking framework and objects for intersection and whether to remove objects or reject the synthesized cell entirely. Currently untested for values other than 'ignore'. Currently only used for framework meshes assuming corresponding vertices by instance2MCellMDL. Default is 'ignore'.''')
