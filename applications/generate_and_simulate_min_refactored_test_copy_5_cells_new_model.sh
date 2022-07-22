@@ -23,6 +23,13 @@ n_images_to_synthesize=5
 cluster_mode='local'
 #cluster_mode='local'; matlab_setup=''
 generation_cluster_jobs=2
+# Any shell command that is required to make Matlab available, e.g., `module load matlab-9.7`
+matlab_setup=""
+if [ "$(hostname)" = 'lanec1.compbio.cs.cmu.edu' ]; then
+    matlab_setup="module load matlab-9.7"
+fi
+# Matlab command if it is not the default of `matlab`
+#matlab_location="matlab"
 
 synthesis='framework'
 downsampling=0.5

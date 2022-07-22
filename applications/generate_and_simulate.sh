@@ -17,6 +17,10 @@
 #vesicle_model='{models}/3D/tfr.mat'
 #n_images_to_synthesize=100
 #cluster_mode='slurm'
+# Any shell command that is required to make Matlab available, e.g., `module load matlab-9.7`
+#matlab_setup=""
+# Matlab command if it is not the default of `matlab`
+#matlab_location="matlab"
 
 #synthesis="framework"
 #downsampling="0.5"
@@ -73,8 +77,6 @@ echo "Beginning at $timestamp_pretty"
 #overwrite=1 # debug
 #overwrite_analysis=1 # debug
 
-
-#echo "\$@=$@"
 
 bash "${cellorganizer}/module_if_available.sh" load python36
 
@@ -173,6 +175,7 @@ if not_zero run_simulations; then
     append_option_if_def_true args overwrite overwrite_simulations
     append_option_with_value_if_def args cellorganizer
     append_option_with_value_if_def args matlab_setup
+    append_option_with_value_if_def args matlab_location
     append_option_with_value_if_def args cluster_mode
     append_option_with_value_if_def args cluster_partition
     append_option_with_value_if_def args generation_cluster_jobs
