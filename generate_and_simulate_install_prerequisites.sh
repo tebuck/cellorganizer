@@ -42,10 +42,7 @@ function exit_code_to_boolean()
 function install_module_if_unavailable()
 {
     python3 -m pip show "$1" >/dev/null 2>&1 ; python_module_available=$(exit_code_to_boolean "$?")
-    #echo "python_module_available='$python_module_available'" # Debug
-    
     if (( ! python_module_available )); then
-        #echo python3 -m pip install --user "${1}==${2}" # Debug
         python3 -m pip install --user "${1}==${2}"
     fi
 }
