@@ -181,7 +181,7 @@ vcml_relative_downsampling = options.vcml_relative_downsampling;
 %}
 fprintf('vcml_relative_downsampling = %f\n', options.vcml_relative_downsampling);
 
-function abspathish(given_path)
+function given_path = abspathish(given_path)
     if strcmp(given_path, '.') || strcmp(given_path, '..') || startsWith(given_path, ['.', filesep]) || startsWith(given_path, ['..', filesep])
         given_path = fullfile(pwd, given_path);
     end
