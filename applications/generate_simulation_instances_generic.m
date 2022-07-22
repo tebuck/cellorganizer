@@ -191,20 +191,8 @@ if ~isdeployed()
     current_pwd = pwd
     current_path = options.output_dir;
     current_path
-    try
-        mkdir_recursive('.');
-    catch err
-        getReport(err)
-    end
-    try
-        mkdir('./mkdir_recursive_test');
-    catch err
-        getReport(err)
-    end
-    try
-        mkdir_recursive('./mkdir_recursive_test');
-    catch err
-        getReport(err)
+    if strcmp(current_path, '.') || strcmp(current_path, '..') || startsWith(current_path, ['.', filesep]) || startsWith(current_path, ['..', filesep])
+        current_path = fullfile(pwd, current_path)
     end
     mkdir_recursive(current_path);
     cd(current_path);
