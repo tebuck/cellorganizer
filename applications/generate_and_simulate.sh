@@ -78,7 +78,10 @@ echo "Beginning at $timestamp_pretty"
 #overwrite_analysis=1 # debug
 
 
-bash "${cellorganizer}/module_if_available.sh" load python36
+# Required to make Python available on lanec1
+if [ "$(hostname)" = 'lanec1.compbio.cs.cmu.edu' ]; then
+    bash "${cellorganizer}/module_if_available.sh" load python36
+fi
 
 # Generate geometries and run simulations
 
