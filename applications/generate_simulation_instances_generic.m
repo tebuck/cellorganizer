@@ -181,6 +181,13 @@ vcml_relative_downsampling = options.vcml_relative_downsampling;
 %}
 fprintf('vcml_relative_downsampling = %f\n', options.vcml_relative_downsampling);
 
+function abspathish(given_path)
+    if strcmp(given_path, '.') || strcmp(given_path, '..') || startsWith(given_path, ['.', filesep]) || startsWith(given_path, ['..', filesep])
+        given_path = fullfile(pwd, given_path);
+    end
+end
+
+
 % error('Not implemented');
 if ~isdeployed()
     %{
@@ -188,14 +195,13 @@ if ~isdeployed()
     [current_path, filename, extension] = fileparts( current_path );
     current_path = [current_path, filesep, mfilename, filesep];
     %}
-    current_pwd = pwd
     current_path = options.output_dir;
-    current_path
-    if strcmp(current_path, '.') || strcmp(current_path, '..') || startsWith(current_path, ['.', filesep]) || startsWith(current_path, ['..', filesep])
-        current_path = fullfile(pwd, current_path)
-    end
+    current_path = abspathish(current_path);
     mkdir_recursive(current_path);
+    ls(current_path)
     cd(current_path);
+    current_pwd = pwd()
+    ls('.')
 end
 
 start_time = tic;
