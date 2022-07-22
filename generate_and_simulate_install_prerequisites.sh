@@ -3,6 +3,27 @@
 # 2022-07-22
 # Copyright 2022 Murphy Lab, CMU
 
+# Warn user
+
+read -p 'Delete directories and uninstall packages prior to attempts to install? [y/N] '
+if [ "$REPLY" = 'y' ]; then
+    cd ~
+    python3 -m pip uninstall -y numpy
+    python3 -m pip uninstall -y pandas
+    python3 -m pip uninstall -y scikit-learn
+    python3 -m pip uninstall -y xarray
+    python3 -m pip uninstall -y scipy
+    python3 -m pip uninstall -y scikit-learn
+    python3 -m pip uninstall -y sklearn_pandas
+    python3 -m pip uninstall -y matplotlib
+    python3 -m pip uninstall -y seaborn
+    python3 -m pip uninstall -y trimesh
+    python3 -m pip uninstall -y statsmodels
+    rm ~/.local/bin/mcell
+    rm -rf ~/mcell
+    rm -rf ~/cellorganizer/*
+fi
+
 # Download CellOrganizer and some trained models
 
 cd ~
@@ -51,7 +72,9 @@ install_module_if_unavailable numpy 1.18.4
 install_module_if_unavailable pandas 1.0.3
 install_module_if_unavailable scikit-learn 0.23.1
 install_module_if_unavailable xarray 0.15.1
-install_module_if_unavailable scipy 1.4.1
+# System scipy version on test machine is 1.8.0, cannot override
+#install_module_if_unavailable scipy 1.4.1
+install_module_if_unavailable scipy 1.8.0
 install_module_if_unavailable scikit-learn 0.23.1
 install_module_if_unavailable sklearn_pandas 1.8.0
 install_module_if_unavailable matplotlib 3.2.1
