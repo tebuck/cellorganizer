@@ -191,6 +191,21 @@ if ~isdeployed()
     current_pwd = pwd
     current_path = options.output_dir;
     current_path
+    try
+        mkdir_recursive('.');
+    catch err
+        getReport(err)
+    end
+    try
+        mkdir('./mkdir_recursive_test');
+    catch err
+        getReport(err)
+    end
+    try
+        mkdir_recursive('./mkdir_recursive_test');
+    catch err
+        getReport(err)
+    end
     mkdir_recursive(current_path);
     cd(current_path);
 end
