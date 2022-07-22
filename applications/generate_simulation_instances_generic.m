@@ -198,10 +198,7 @@ if ~isdeployed()
     current_path = options.output_dir;
     current_path = abspathish(current_path);
     mkdir_recursive(current_path);
-    ls(current_path)
     cd(current_path);
-    current_pwd = pwd()
-    ls('.')
 end
 
 start_time = tic;
