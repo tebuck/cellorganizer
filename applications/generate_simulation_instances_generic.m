@@ -188,6 +188,7 @@ if ~isdeployed()
     [current_path, filename, extension] = fileparts( current_path );
     current_path = [current_path, filesep, mfilename, filesep];
     %}
+    current_pwd = pwd
     current_path = options.output_dir;
     current_path
     mkdir_recursive(current_path);
