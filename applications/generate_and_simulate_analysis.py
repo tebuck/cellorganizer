@@ -709,15 +709,15 @@ def generate_and_simulate_analysis(**kw):
             
             # Load data, compute features per time point
             
-            can_start, final_exists, temp_name = chunk_start_xarray(simulation_base_filename, 'iterations_features')
-            if debug_always_overwrite_features and final_exists:
-                can_start = True
+            iterations_features_can_start, iterations_features_final_exists, iterations_features_temp_name = chunk_start_xarray(simulation_base_filename, 'iterations_features')
+            if debug_always_overwrite_features and iterations_features_final_exists:
+                iterations_features_can_start = True
             
-            if not debug_always_overwrite_features and final_exists:
+            if not debug_always_overwrite_features and iterations_features_final_exists:
                 
                 simulation_iterations_features = load_xarray(simulation_base_filename, ['iterations_features'])['iterations_features']
                 
-            elif can_start:
+            elif iterations_features_can_start:
                 
                 file_path_list = glob.glob(os.path.join(simulation_data_dir, '*.dat'))
                 file_path_list = filename_sorted(file_path_list)
@@ -784,9 +784,9 @@ def generate_and_simulate_analysis(**kw):
                 save_xarray(simulation_base_filename, iterations_features=simulation_iterations_features)
                 
                 chunk_finish_xarray(simulation_base_filename, 'iterations_features')
-                final_exists = True
+                iterations_features_final_exists = True
             
-            if final_exists:
+            if iterations_features_final_exists:
                 # Fix nan concentration when molecule is not present
                 simulation_iterations_features.loc[{'Iteration feature': 'molecule_count', 'Iteration': 0, 'Variable': simulation_iterations_features.loc[{'Iteration feature': 'molecule_count', 'Iteration': 0}].isnull()}] = 0 
                 simulations_iterations_features.append(simulation_iterations_features)
@@ -794,15 +794,17 @@ def generate_and_simulate_analysis(**kw):
             
             # Compute features across time
             
-            can_start, final_exists, temp_name = chunk_start_xarray(simulation_base_filename, 'features')
-            if debug_always_overwrite_features and final_exists:
-                can_start = True
+            features_can_start, features_final_exists, features_temp_name = chunk_start_xarray(simulation_base_filename, 'features')
+            if debug_always_overwrite_features and features_final_exists:
+                features_can_start = True
+            if not iterations_features_final_exists:
+                features_can_start = False
             
-            if not debug_always_overwrite_features and final_exists:
+            if not debug_always_overwrite_features and features_final_exists:
                 
                 simulation_features = load_xarray(simulation_base_filename, ['features'])['features']
                 
-            elif can_start:
+            elif features_can_start:
                 
                 if not debug_skip_computing_features:
                     simulation_features = []
@@ -819,9 +821,9 @@ def generate_and_simulate_analysis(**kw):
                 save_xarray(simulation_base_filename, features=simulation_features)
                 
                 chunk_finish_xarray(simulation_base_filename, 'features')
-                final_exists = True
+                features_final_exists = True
             
-            if final_exists:
+            if features_final_exists:
                 simulations_features.append(simulation_features)
             else:
                 simulations_features_all_included = False
