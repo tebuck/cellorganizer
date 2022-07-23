@@ -3,26 +3,55 @@
 # 2022-07-22
 # Copyright 2022 Murphy Lab, CMU
 
-# Warn user
+# Python packages and versions to install
 
-read -p 'Delete directories and uninstall packages prior to attempts to install? [y/N] '
-if [ "$REPLY" = 'y' ]; then
-    cd ~
-    python3 -m pip uninstall -y numpy
-    python3 -m pip uninstall -y pandas
-    python3 -m pip uninstall -y scikit-learn
-    python3 -m pip uninstall -y xarray
-    python3 -m pip uninstall -y scipy
-    python3 -m pip uninstall -y scikit-learn
-    python3 -m pip uninstall -y sklearn_pandas
-    python3 -m pip uninstall -y matplotlib
-    python3 -m pip uninstall -y seaborn
-    python3 -m pip uninstall -y trimesh
-    python3 -m pip uninstall -y statsmodels
-    rm ~/.local/bin/mcell
-    rm -rf ~/mcell
-    rm -rf ~/cellorganizer/*
+declare -A python_packages_versions
+python_packages_versions['numpy']='1.18.4'
+python_packages_versions['pandas']='1.0.3'
+python_packages_versions['scikit-learn']='0.23.1'
+python_packages_versions['xarray']='0.15.1'
+# System scipy version on test machine is 1.8.0, cannot override
+#python_packages_versions['scipy']='1.4.1'
+python_packages_versions['scipy']='1.8.0'
+python_packages_versions['scikit-learn']='0.23.1'
+python_packages_versions['sklearn_pandas']='1.8.0'
+python_packages_versions['matplotlib']='3.2.1'
+python_packages_versions['seaborn']='0.10.1'
+python_packages_versions['trimesh']='3.6.43'
+# Works with scipy 1.4.1, incompatible with scipy 1.8.0
+#python_packages_versions['statsmodels']='0.11.1'
+python_packages_versions['statsmodels']='0.13.2'
+
+
+# Delete files to be overwritten
+
+# Warn user
+echo 'Warning: This script will attempt to install the following:'
+echo '    https://github.com/tebuck/cellorganizer into ~/cellorganizer'
+echo '    https://github.com/tebuck/cellorganizer-models into ~/cellorganizer/models'
+echo '    https://github.com/mcellteam/mcell into ~/mcell'
+echo '    Python packages to be installed for user:'
+for package in "${!python_packages_versions[@]}"; do
+    version="${python_packages_versions[$package]}"
+    echo "        $package==$version"
+done
+read -p 'Delete directories, uninstall packages, and proceed with install? [y/N] '
+if [ "$REPLY" != 'y' ]; then
+    exit
 fi
+
+# Uninstall
+cd ~
+for package in "${!python_packages_versions[@]}"; do
+    version="${python_packages_versions[$package]}"
+    python3 -m pip uninstall -y "$package"
+done
+
+# Delete
+rm ~/.local/bin/mcell
+rm -rf ~/mcell
+rm -rf ~/cellorganizer
+
 
 # Download CellOrganizer and some trained models
 
@@ -44,7 +73,8 @@ cmake --build build
 mkdir -p ~/.local/bin
 cp build/mcell ~/.local/bin
 cd ~
-# Add `~/.local/bin` to your PATH automatically in by copying the following line into `~/.bash_profile` if you are using bash. If you are using another shell, please consult its documentation.
+echo 'Add `~/.local/bin` to your PATH automatically in by copying the following line into `~/.bash_profile` if you are using bash. If you are using another shell, please consult its documentation.'
+echo 'PATH="${PATH}:$HOME/.local/bin"'
 PATH="${PATH}:$HOME/.local/bin"
 
 
@@ -68,18 +98,7 @@ function install_module_if_unavailable()
     fi
 }
 
-install_module_if_unavailable numpy 1.18.4
-install_module_if_unavailable pandas 1.0.3
-install_module_if_unavailable scikit-learn 0.23.1
-install_module_if_unavailable xarray 0.15.1
-# System scipy version on test machine is 1.8.0, cannot override
-#install_module_if_unavailable scipy 1.4.1
-install_module_if_unavailable scipy 1.8.0
-install_module_if_unavailable scikit-learn 0.23.1
-install_module_if_unavailable sklearn_pandas 1.8.0
-install_module_if_unavailable matplotlib 3.2.1
-install_module_if_unavailable seaborn 0.10.1
-install_module_if_unavailable trimesh 3.6.43
-# Works with scipy 1.4.1, incompatible with scipy 1.8.0
-#install_module_if_unavailable statsmodels 0.11.1
-install_module_if_unavailable statsmodels 0.13.2
+for package in "${!python_packages_versions[@]}"; do
+    version="${python_packages_versions[$package]}"
+    install_module_if_unavailable "$package" "$version"
+done
