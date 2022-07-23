@@ -45,9 +45,9 @@ except OSError:
 
 
 
-# is_pandas = lambda x: isinstance(x, [pd.Series, pd.DataFrame, pd.Panel])
-is_pandas = lambda x: isinstance(x, [pd.Series, pd.DataFrame])
-is_xarray = lambda x: isinstance(x, [xr.DataArray, xr.Dataset])
+# is_pandas = lambda x: isinstance(x, (pd.Series, pd.DataFrame, pd.Panel))
+is_pandas = lambda x: isinstance(x, (pd.Series, pd.DataFrame))
+is_xarray = lambda x: isinstance(x, (xr.DataArray, xr.Dataset))
 should_convert_to_numpy_func = lambda x: not is_pandas(x) and not is_xarray(x)
 
 all_but_axis_slice_func = lambda ndim, axis: (slice(None),) * axis + (None,) + (slice(None),) * (ndim - axis - 1)
