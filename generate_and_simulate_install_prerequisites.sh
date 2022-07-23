@@ -35,6 +35,7 @@ for package in "${!python_packages_versions[@]}"; do
     version="${python_packages_versions[$package]}"
     echo "        $package==$version"
 done
+echo '    Append a line to modify PATH in ~/.bashrc'
 read -p 'Delete directories, uninstall packages, and proceed with install? [y/N] '
 if [ "$REPLY" != 'y' ]; then
     exit
@@ -73,9 +74,13 @@ cmake --build build
 mkdir -p ~/.local/bin
 cp build/mcell ~/.local/bin
 cd ~
-echo 'Add `~/.local/bin` to your PATH automatically in by copying the following line into `~/.bash_profile` if you are using bash. If you are using another shell, please consult its documentation.'
-echo 'PATH="${PATH}:$HOME/.local/bin"'
-PATH="${PATH}:$HOME/.local/bin"
+#echo 'Add `~/.local/bin` to your PATH automatically in by copying the following line into `~/.bashrc` if you are using bash. If you are using another shell, please consult its documentation.'
+#PATH="${PATH}:$HOME/.local/bin"
+echo 'Adding `~/.local/bin` to your path permanently by appending the following line to `~/.bashrc` (if not already present) as our scripts are designed to be used with bash. Please run the command `. ~/.bashrc`. If you are using another shell, please consult its documentation to add a directory to your path.'
+if ! grep --quiet 'PATH="${PATH}:$HOME/.local/bin"' ~/.bashrc  ; then
+    echo 'PATH="${PATH}:$HOME/.local/bin"' >> ~/.bashrc
+fi
+. ~/.bashrc
 
 
 # Download and install Python packages
