@@ -53,7 +53,6 @@ run_analysis=1
 #n_images_to_synthesize=1
 #overwrite_simulations=1
 #run_analysis=0
-reaction_network_pattern='{{data}}/CBExMinScaled3_01sec/CBExMinScaled3_01sec.*.mdl'; simulation_end_time=1
 framework_clearance_n_max_filter_rounds=0
 
 

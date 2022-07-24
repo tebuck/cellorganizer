@@ -58,6 +58,8 @@ rm -rf ~/cellorganizer
 
 cd ~
 git clone https://github.com/tebuck/cellorganizer.git
+cd ~/cellorganizer
+git checkout simulation-experiment-fix
 cd ~
 git clone https://github.com/tebuck/cellorganizer-models.git
 mv cellorganizer-models ~/cellorganizer/models
