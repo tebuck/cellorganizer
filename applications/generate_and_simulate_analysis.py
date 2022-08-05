@@ -100,7 +100,8 @@ def generate_and_simulate_analysis(**kw):
     wait_for_jobs = info['wait_for_jobs']
     output_vcml = info['output_vcml']
     output_mcell = info['output_mcell']
-    debug_quick = info['debug_quick']
+    
+    debug_quick = kw['debug_quick']
     #  = info['']
     
     # Paths
