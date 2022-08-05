@@ -54,6 +54,7 @@ run_analysis=1
 #overwrite_simulations=1
 #run_analysis=0
 framework_clearance_n_max_filter_rounds=0
+debug_quick=1
 
 
 ###########################################################################

@@ -236,6 +236,7 @@ if (( generate_and_simulate_successful && run_analysis )); then
     append_option_with_value_if_def args downsampling
     append_option_with_value_if_def args vcml_relative_downsampling
     append_option_with_value_if_def args simulation_end_time
+    append_option_with_value_if_def args debug_quick
     (
         set -o pipefail
         python3 -m IPython --pdb -- generate_and_simulate_analysis.py "${args[@]}" \
