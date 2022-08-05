@@ -100,6 +100,7 @@ def generate_and_simulate_analysis(**kw):
     wait_for_jobs = info['wait_for_jobs']
     output_vcml = info['output_vcml']
     output_mcell = info['output_mcell']
+    debug_quick = info['debug_quick']
     #  = info['']
     
     # Paths
@@ -147,44 +148,41 @@ def generate_and_simulate_analysis(**kw):
     debug_always_load_features = False
     debug_skip_computing_features = False
     
-    # debug_max_simulations = 2 # Debug
-    debug_max_simulations = 5 # Debug
-    # debug_max_simulations = 10 # Debug
+    if debug_quick:
+        # debug_max_simulations = 2 # Debug
+        debug_max_simulations = 5 # Debug
+        # debug_max_simulations = 10 # Debug
+        
+        # debug_max_times = 2 # Debug
+        # debug_max_times = 5 # Debug
+        debug_max_times = 10 # Debug
+        
+        # debug_max_faces = 2 # Debug
+        debug_max_faces = 5 # Debug
+        
+        debug_always_overwrite_data = True
+        debug_always_overwrite_features = True
+        debug_always_overwrite_analysis = True
+        debug_always_overwrite_plots = True
+        debug_always_load_features = True
+        # debug_skip_computing_features = True
+    
     if debug_max_simulations is not None:
         print('\nDEBUG debug_max_simulations = {0}\n'.format(debug_max_simulations));
-    
-    # debug_max_times = 2 # Debug
-    # debug_max_times = 5 # Debug
-    debug_max_times = 10 # Debug
     if debug_max_times is not None:
         print('\nDEBUG debug_max_times = {0}\n'.format(debug_max_times));
-    
-    # debug_max_faces = 2 # Debug
-    debug_max_faces = 5 # Debug
     if debug_max_faces is not None:
         print('\nDEBUG debug_max_faces = {0}\n'.format(debug_max_faces));
-    
-    debug_always_overwrite_data = True
     if debug_always_overwrite_data:
         print('\nDEBUG debug_always_overwrite_data = {0}\n'.format(debug_always_overwrite_data));
-    
-    debug_always_overwrite_features = True
     if debug_always_overwrite_features:
         print('\nDEBUG debug_always_overwrite_features = {0}\n'.format(debug_always_overwrite_features));
-    
-    debug_always_overwrite_analysis = True
     if debug_always_overwrite_analysis:
         print('\nDEBUG debug_always_overwrite_analysis = {0}\n'.format(debug_always_overwrite_analysis));
-    
-    debug_always_overwrite_plots = True
     if debug_always_overwrite_plots:
         print('\nDEBUG debug_always_overwrite_plots = {0}\n'.format(debug_always_overwrite_plots));
-    
-    debug_always_load_features = True
     if debug_always_load_features:
         print('\nDEBUG debug_always_load_features = {0}\n'.format(debug_always_load_features));
-    
-    # debug_skip_computing_features = True
     if debug_skip_computing_features:
         print('\nDEBUG debug_skip_computing_features = {0}\n'.format(debug_skip_computing_features));
     
@@ -1647,6 +1645,9 @@ if __name__ == '__main__':
     parser.add_argument('--vcml_relative_downsampling', type=positive_float, default=1/2, help='Factor for further downsampling for writing VCML files. VCell simulation data from fewer than 100 simulations at full resolution can fill available disk space on the VCell server, but this is less of a concern when running simulations on your own cluster.')
     
     parser.add_argument('--simulation_end_time', type=positive_float, default=4000, help='Time at which to end simulation in seconds')
+    
+    # parser.add_argument('--debug_flag', type=str, nargs='*', help='Debug flags')
+    parser.add_argument('--debug_quick', action='store_true', help='Debug flag')
     
     argv = sys.argv
     argv = remove_prepended_arguments(argv)
