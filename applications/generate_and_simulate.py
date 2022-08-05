@@ -268,9 +268,6 @@ def generate_and_simulate(**kw):
     
     # Generate geometries and save as MCell MDL files or Virtual Cell VCML files using CellOrganizer
     # TODO Check for existence of all output and no lock files. If so, skip generation command unless recomputation requested.
-    '''
-    for i in $(seq 1 4) ; do /bin/bash run_application.sh --mode slurm --cluster_partition model1 --cluster_exclusive --cluster_memory 24576 --matlab_setup "module load matlab-9.7" generate_simulation_instances_min ; sleep 2 ; done
-    '''
     generation_matlab_command_lines = []
     
     generation_args_kw_not_for_matlab = set()
@@ -374,10 +371,6 @@ def generate_and_simulate(**kw):
     # Run MCell simulations
     if output_mcell:
         # raise NotImplementedError # Debug
-        '''
-        ~/repos/cellorganizer3/applications/generate_simulation_instances_min/img_CBExMinScaled3_20min_0.50_[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_4000sec
-        /bin/bash ~/repos/cellorganizer3/run_mcell_simulations.sh --mode slurm --cluster_partition model1 --cluster_cpus 1 --cluster_memory 2048 --cluster_jobs 16 --seed_offset 500578 ~/repos/cellorganizer3/applications/generate_simulation_instances_min/img_CBExMinScaled3_20min_0.50_[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_4000sec
-        '''
         simulation_command = []
         simulation_command.extend([get_bash_path()])
         simulation_command.extend([os.path.join(kw['cellorganizer'], 'run_mcell_simulations.sh')])
@@ -393,6 +386,13 @@ def generate_and_simulate(**kw):
         # simulation_command.extend(['--overwrite_existing_results', int(kw['overwrite'])])
         if not kw['overwrite']:
             simulation_command.extend(['--keep_existing_results'])
+        
+        debug_exit_code = False
+        debug_exit_code = True # Debug
+        if debug_exit_code:
+            print('\nDEBUG debug_exit_code = {0}\n'.format(debug_exit_code));
+            simulation_command.extend(['--asdf'])
+        
         simulation_command.extend([mcell_simulations_directory_pattern])
         # simulation_command.extend([])
         simulation_command = [x if isinstance(x, str) else repr(x) for x in simulation_command]

@@ -5,6 +5,8 @@
 # 2022-07-11
 # Copyright 2022 Murphy Lab, CMU
 
+set -o pipefail
+
 function exit_code_to_boolean()
 {
     [[ "$1" -ne "0" ]]

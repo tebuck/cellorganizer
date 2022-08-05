@@ -3,6 +3,8 @@
 # 2022-07-22
 # Copyright 2022 Murphy Lab, CMU
 
+set -o pipefail
+
 # Python packages and versions to install
 
 declare -A python_packages_versions

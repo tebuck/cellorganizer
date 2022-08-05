@@ -1,6 +1,8 @@
 #!/bin/bash
 # Run a application locally or on the cluster
 
+set -o pipefail
+
 args=("$@")
 
 usage()
@@ -229,7 +231,10 @@ case "$mode" in
         fi
         tempfilename=$(mktemp "--tmpdir=${tempdir}")
         cat <<- EOF > "${tempfilename}"
-#!/bin/sh
+#!/bin/bash
+
+set -o pipefail
+
 HOST=\`hostname -s\`
 USER=\`whoami\`
 pwd

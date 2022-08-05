@@ -30,6 +30,8 @@
 ###########################################################################
 # DO NOT MODIFY THIS BLOCK
 
+set -o pipefail
+
 declare -A required_vars
 required_vars['cellorganizer']='the path of your CellOrganizer installation'
 #required_vars['reaction_network_pattern']='either a path of a single VCML file or a glob pattern for a single collection of MCell MDL files'

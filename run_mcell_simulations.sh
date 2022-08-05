@@ -1,6 +1,8 @@
 #!/bin/bash
 # Run MCell simulations locally or on the cluster
 
+set -o pipefail
+
 usage()
 {
     cat << EOF
@@ -58,6 +60,7 @@ execute_command()
     else
         echo "Executing '$@'"
         eval $@
+        return $?
     fi
 }
 
@@ -311,6 +314,9 @@ for i in $(seq 0 $(expr $n_mcell_main_scripts - 1)); do
             : > "${tempfilename}"
             cat <<- EOF >> "${tempfilename}"
 #!/bin/bash
+
+set -o pipefail
+
 HOST=\`hostname -s\`
 USER=\`whoami\`
 EOF
@@ -340,6 +346,7 @@ execute_command()
     else
         echo2 eval \$@
         eval \$@
+        return $?
     fi
 }
 execute_command_with_optional_ignore_error()
@@ -362,7 +369,7 @@ echo2
 echo2 Started at \`$timestamp_cmd_long\`
 echo2
 echo2
-execute_command_with_optional_ignore_error mcell -seed \$MCELL_SEED "\$MCELL_SCRIPT" 1>> "\$MCELL_SCRIPT_STDOUT" 2> "\$MCELL_SCRIPT_STDERR"
+execute_command_with_optional_ignore_error mcell -seed \$MCELL_SEED "\$MCELL_SCRIPT" 1>> "\$MCELL_SCRIPT_STDOUT" 2>> "\$MCELL_SCRIPT_STDERR"
 echo2
 echo2
 echo2 Finished at \`$timestamp_cmd_long\`
