@@ -388,7 +388,7 @@ def generate_and_simulate(**kw):
             simulation_command.extend(['--keep_existing_results'])
         
         debug_exit_code = False
-        debug_exit_code = True # Debug
+        # debug_exit_code = True # Debug
         if debug_exit_code:
             print('\nDEBUG debug_exit_code = {0}\n'.format(debug_exit_code));
             simulation_command.extend(['--asdf'])
