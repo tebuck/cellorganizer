@@ -335,6 +335,7 @@ MCELL_SCRIPT_STDOUT="\${MCELL_SCRIPT}.\${MCELL_SEED}.stdout"
 MCELL_SCRIPT_STDERR="\${MCELL_SCRIPT}.\${MCELL_SEED}.stderr"
 echo > "\$MCELL_SCRIPT_STDOUT"
 function echo2 {
+    echo \$@
     echo \$@ >> "\$MCELL_SCRIPT_STDOUT"
 }
 MCELL_DRY_RUN=0
@@ -374,6 +375,18 @@ echo2
 echo2
 echo2 Finished at \`$timestamp_cmd_long\`
 execute_command cd "${original_dir}"
+
+echo
+echo "Contents of \$MCELL_SCRIPT_STDOUT:"
+echo
+cat "\$MCELL_SCRIPT_STDOUT"
+echo
+echo
+echo "Contents of \$MCELL_SCRIPT_STDERR:"
+echo
+cat "\$MCELL_SCRIPT_STDERR"
+echo
+echo
 EOF
         
         chmod a+rx "${tempfilename}"
